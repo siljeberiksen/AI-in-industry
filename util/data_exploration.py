@@ -37,3 +37,6 @@ def plot_bars(data, figsize=None, tick_gap=1, series=None):
     plt.grid(linestyle=':')
     plt.tight_layout()
 
+
+
+
