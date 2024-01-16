@@ -16,7 +16,7 @@ def build_nn_normal_model(input_shape, hidden, stddev_guess=1):
     model_in = tf.keras.Input(shape=input_shape, dtype='float32')
     x = model_in
     for h in hidden:
-        x = tf.keras.layers.Dense(h, activation='relu')(x)
+        x = keras.layers.Dense(h, activation='relu')(x)
     mu_logsigma = tf.keras.layers.Dense(2, activation='linear')(x)
     lf = lambda t: tfp.distributions.Normal(loc=t[:, :1], scale=tf.math.exp(t[:, 1:]))
     model_out = tfp.layers.DistributionLambda(lf)(mu_logsigma)
@@ -51,7 +51,7 @@ def train_nn_model(model, X, y, loss,
     # Build the early stop callback
     cb = []
     if validation_split > 0:
-        cb += [tf.keras.callbacks.EarlyStopping(patience=patience,
+        cb += [keras.callbacks.EarlyStopping(patience=patience,
             restore_best_weights=True)]
     # Train the model
     history = model.fit(X, y, callbacks=cb,
